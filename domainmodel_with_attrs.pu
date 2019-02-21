@@ -1,0 +1,30 @@
+@startuml
+
+title ドメインモデル（属性付き）
+
+left to right direction
+
+class 教員 << actor >>
+class 学生 << actor >>
+
+class 課題 {
+    内容: String
+    提出期限: Date
+}
+
+class 答案 {
+    内容: String
+    採点結果: String
+}
+
+class アカウント
+class アカウント管理
+
+課題 o-- 答案
+学生 o-- 答案
+教員 o-- 課題
+学生 o-- アカウント
+教員 o-- アカウント
+アカウント管理 o-- アカウント
+
+@enduml

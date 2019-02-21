@@ -1,0 +1,34 @@
+@startuml
+
+title 答案を再提出する
+hide footbox
+
+actor 学生 as User
+boundary 課題詳細ページ as ExerciseDetailPage
+boundary 答案提出ページ as SubmissionPage
+boundary Routing
+control SubmissionController
+control ExerciseController
+entity Submission
+
+User -> ExerciseDetailPage : 提出ボタンを押す
+ExerciseDetailPage -> Routing : link_to
+Routing -> SubmissionController : edit
+SubmissionController -> SubmissionPage : 表示する
+User -> SubmissionPage : 提出ボタンを押す
+SubmissionPage -> Routing : form_for
+Routing -> SubmissionController : update
+create Submission
+SubmissionController -> Submission : find
+SubmissionController -> Submission : validateUpdate
+
+group 代替フロー (検証エラーがある場合)
+    SubmissionController -> SubmissionPage : 検証エラーメッセージ付きで表示する
+end
+
+SubmissionController -> Submission : save!
+SubmissionController -> Routing : redirect_to
+Routing -> ExerciseController : show
+ExerciseController -> ExerciseDetailPage : 確認メッセージ付きで表示する
+
+@enduml

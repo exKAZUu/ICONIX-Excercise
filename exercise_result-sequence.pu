@@ -1,0 +1,22 @@
+@startuml
+
+title 答案と採点結果を閲覧する
+hide footbox
+
+actor 学生 as User
+boundary トップページ as TopPage
+boundary 課題詳細ページ as ExerciseDetailPage
+boundary Routing
+control ExerciseController
+entity Exercise
+entity Submission
+
+User -> TopPage : 課題名のリンクを押す
+TopPage -> Routing : link_to
+Routing -> ExerciseController : show
+ExerciseController -> Exercise : find(exercise_id)
+Exercise -> Submission : submissions.find_mine
+create ExerciseDetailPage
+ExerciseController -> ExerciseDetailPage : 表示する
+
+@enduml

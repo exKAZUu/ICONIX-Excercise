@@ -1,0 +1,44 @@
+@startuml
+
+title クラス図
+
+class Exercise {
+    content: String
+    due: Date
+    +validateCreation()
+    +validateUpdate()
+}
+
+class Submission {
+    content: String
+    feedback: String
+    +find_mine()
+}
+
+class ExerciseController {
+    +index()
+    +show()
+}
+
+class SubmissionController {
+    +new()
+    +edit()
+    +create()
+    +update()
+}
+
+class ApplicationController
+class ActionController::Base
+class ActiveRecord::Base
+
+Exercise o-- Submission
+Submission <|--- ActiveRecord::Base
+Exercise <|--- ActiveRecord::Base
+ExerciseController <|--- ApplicationController
+SubmissionController <|--- ApplicationController
+ApplicationController <|--- ActionController::Base
+
+ExerciseController ..> Exercise
+SubmissionController ..> Submission
+
+@enduml

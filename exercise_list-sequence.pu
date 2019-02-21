@@ -1,0 +1,28 @@
+@startuml
+
+title 課題一覧を閲覧する 
+hide footbox
+
+actor 教員と学生 as User
+boundary トップページ as TopPage
+boundary Routing
+control ExerciseController
+entity Exercise
+entity Device
+
+User -> Routing : WebサイトのURLを入力する
+Routing -> ExerciseController : index
+ExerciseController -> Device : authenticate_user!
+
+group 代替フロー (未ログインの場合)
+    note over TopPage, Routing
+        ログインユースケースを起動
+    end note
+end
+
+create Exercise
+ExerciseController -> Exercise : all.paginate
+create TopPage
+ExerciseController -> TopPage : 表示する
+
+@enduml

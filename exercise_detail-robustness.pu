@@ -1,0 +1,20 @@
+@startuml
+
+title 課題詳細を閲覧する 
+
+left to right direction
+
+actor 教員と学生 as User
+boundary トップページ
+boundary 課題詳細ページ
+control 表示する
+control 詳細情報を取得する
+entity 課題
+
+User --> トップページ
+トップページ --> 表示する : 課題名のリンクを押す
+表示する --> 課題詳細ページ
+課題詳細ページ -right-> 詳細情報を取得する
+詳細情報を取得する -right-> 課題
+
+@enduml

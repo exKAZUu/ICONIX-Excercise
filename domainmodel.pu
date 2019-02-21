@@ -1,0 +1,20 @@
+@startuml
+
+title ドメインモデル
+
+left to right direction
+
+class 教員 << actor >>
+class 学生 << actor >>
+
+class 課題
+class 答案
+class 採点結果
+
+課題 o-- 答案
+答案 o-- 採点結果
+学生 o-- 答案
+教員 o-- 課題
+教員 o-- 採点結果
+
+@enduml

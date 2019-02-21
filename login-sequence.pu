@@ -1,0 +1,28 @@
+@startuml
+
+title ログインする
+hide footbox
+
+actor 教員と学生 as User
+boundary ログインページ as LoginPage
+boundary トップページ as TopPage
+entity Device
+control ExerciseController
+
+User <- LoginPage : 表示する
+User -> LoginPage : ログインボタンを押す
+LoginPage -> Device : sign_in
+
+group 代替フロー1 (ログインに失敗した場合)
+    LoginPage -> LoginPage : エラーメッセージ付きで表示する
+end
+
+group 代替フロー2 (既にログイン済みの場合)
+    LoginPage -> TopPage : redirect_to
+end
+
+Device -> ExerciseController : index
+ExerciseController -> Device : current_user
+ExerciseController -> TopPage : 表示する
+
+@enduml
